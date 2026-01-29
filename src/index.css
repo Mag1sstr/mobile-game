@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "tailwindcss";
+
+:root {
+  --bg: #1b1931;
+  --bg-purple: linear-gradient(89.78deg, #a700f5 0.19%, #ce17f2 99.71%);
+}
+.bgPurple {
+  background: linear-gradient(89.78deg, #a700f5 0.19%, #ce17f2 99.71%);
+}
+
+.bgStars {
+  background-image: url("/stars.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+@layer base {
+  .inter {
+    font-family: "Inter", sans-serif;
+  }
+  .bebas {
+    font-family: "Bebas Neue", sans-serif;
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes twinkleSlow {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+/* font-family: "Bebas Neue", sans-serif; */
+/* font-family: "Inter", sans-serif; */
