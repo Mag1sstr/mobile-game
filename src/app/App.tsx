@@ -3,14 +3,28 @@ import SwitchMode from "../features/SwitchMode";
 function App() {
   return (
     <>
-      <div
-        className="h-screen bg-(--bg) px-4 pt-4 pb-10 text-white   overflow-hidden relative w-full h-full
-        bg-[url('/stars.png')] 
-    
+      <div className="relative h-screen bg-(--bg) px-4 pt-4 pb-10 text-white overflow-hidden">
+        {/* Это анимация звезд */}
+        <div
+          className="
+      absolute inset-0
+      bg-[url('/stars.png')] bg-repeat
+      opacity-20
+      animate-[twinkle_4s_ease-in-out_infinite]
     "
-      >
+        />
+        <div
+          className="
+      absolute inset-0
+      bg-[url('/stars.png')] bg-repeat
+      opacity-10
+      animate-[twinkle_7s_ease-in-out_infinite]
+    "
+        />
+
+        {/* Другое */}
         <div className="flex justify-between items-center pb-3.5 mb-3">
-          <p>Crypto Shake</p>
+          <p className="bit font-medium">Crypto Shake</p>
           <button>
             <svg
               width="25"
