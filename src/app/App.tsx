@@ -212,6 +212,10 @@ function App() {
         </div>
 
         <SwitchMode />
+
+        <div className="flex justify-center">
+          <img src="/light/purple.png" alt="purple-light" />
+        </div>
       </div>
     </>
   );
