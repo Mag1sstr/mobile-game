@@ -48,3 +48,12 @@
     opacity: 0.4;
   }
 }
+
+.rotateAnim {
+  animation: rotate 20s infinite linear;
+}
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

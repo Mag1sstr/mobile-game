@@ -214,7 +214,18 @@ function App() {
         <SwitchMode />
 
         <div className="flex justify-center">
-          <img src="/light/purple.png" alt="purple-light" />
+          <div className="relative">
+            <img
+              className="absolute top-19 left-0 z-1"
+              src="/hand.png"
+              alt="hand"
+            />
+            <img
+              className="rotateAnim"
+              src="/light/purple.png"
+              alt="purple-light"
+            />
+          </div>
         </div>
       </div>
     </>
