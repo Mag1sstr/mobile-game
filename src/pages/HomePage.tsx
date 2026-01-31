@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import LightRotate from "../entities/LightRotate";
 import SwitchMode from "../features/SwitchMode";
+import clsx from "clsx";
 
 function HomePage() {
+  const [isShaking, setIsShaking] = useState(false);
   const [count, setCount] = useState(0);
   useEffect(() => {
     const handleShake = (e: DeviceMotionEvent) => {
@@ -25,6 +27,15 @@ function HomePage() {
 
     return () => window.removeEventListener("devicemotion", handleShake);
   }, []);
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    if (isShaking) {
+      timer = setTimeout(() => setIsShaking(false), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [count, isShaking]);
+
   return (
     <div className="relative h-screen bg-(--bg) px-4 pt-4 pb-10 text-white overflow-hidden">
       {/* Это анимация звезд */}
@@ -237,9 +248,18 @@ function HomePage() {
       <SwitchMode />
 
       <div className="flex justify-center">
-        <div className="relative">
+        <div
+          className="relative"
+          onClick={() => {
+            setIsShaking(true);
+            setCount((p) => p + 1);
+          }}
+        >
           <img
-            className="absolute top-19 left-0 z-1"
+            className={clsx(
+              "absolute top-19 left-0 z-1",
+              isShaking && "handAnim",
+            )}
             src="/hand.png"
             alt="hand"
           />

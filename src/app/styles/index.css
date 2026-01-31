@@ -1,14 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url(./animation.css);
 @import "tailwindcss";
 
 :root {
   --bg: #1b1931;
   --bg-purple: linear-gradient(89.78deg, #a700f5 0.19%, #ce17f2 99.71%);
-}
-.bgPurple {
-  background: linear-gradient(89.78deg, #a700f5 0.19%, #ce17f2 99.71%);
 }
 
 .bgStars {
@@ -18,7 +16,18 @@
   background-size: cover;
 }
 
+button {
+  outline: none;
+}
+
 @layer base {
+  .bgPurple {
+    background: linear-gradient(89.78deg, #a700f5 0.19%, #ce17f2 99.71%);
+  }
+
+  .btnPurple {
+    background: linear-gradient(89.4deg, #a700f5 0.38%, #ce17f2 99.39%);
+  }
   .inter {
     font-family: "Inter", sans-serif;
   }
@@ -27,33 +36,5 @@
   }
   .bit {
     font-family: "Bitcount Single", sans-serif;
-  }
-}
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-@keyframes twinkleSlow {
-  0%,
-  100% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-}
-
-.rotateAnim {
-  animation: rotate 20s infinite linear;
-}
-@keyframes rotate {
-  to {
-    transform: rotate(360deg);
   }
 }
