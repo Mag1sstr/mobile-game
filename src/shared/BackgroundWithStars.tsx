@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 function BackgroundWithStars({ children }: { children: ReactNode }) {
   return (
-    <div className="relative h-screen bg-(--bg) px-4 pt-4 pb-10 text-white overflow-hidden">
+    <div className="h-screen bg-(--bg) px-4 pt-4 pb-10 text-white overflow-hidden ">
       {/* Это анимация звезд */}
       <div
         className="

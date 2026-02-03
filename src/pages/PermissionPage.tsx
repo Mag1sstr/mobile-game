@@ -2,9 +2,12 @@ import { motion } from "motion/react";
 import LightRotate from "../entities/LightRotate";
 import BackgroundWithStars from "../shared/BackgroundWithStars";
 
-function PermissionPage() {
+interface IProps {
+  onAccept: () => void;
+}
+
+function PermissionPage({ onAccept }: IProps) {
   const requestMotionPermission = async () => {
-    alert("click");
     if (
       typeof DeviceMotionEvent !== "undefined" &&
       // @ts-ignore
@@ -14,16 +17,17 @@ function PermissionPage() {
       // @ts-ignore
       const permission = await DeviceMotionEvent.requestPermission();
       if (permission === "granted") {
-        // window.addEventListener("devicemotion", handleShake);
-        alert("Thank you");
+        localStorage.setItem("permissionAccepted", "true");
+        onAccept();
       }
     } else {
       // Android / Chrome
-      // window.addEventListener("devicemotion", handleShake);
+      localStorage.setItem("permissionAccepted", "true");
+
+      onAccept();
     }
   };
   return (
-    // <section className="h-screen  bg-black p-4 flex flex-col items-center justify-center text-white">
     <BackgroundWithStars>
       <div className="flex flex-col items-center justify-center h-screen">
         <motion.h1
@@ -61,13 +65,12 @@ function PermissionPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2 }}
-          className="bebas text-[2.5rem] max-w-[315px] px-6 py-5.25 btnPurple leading-none rounded-3xl cursor-pointer"
+          className="bebas text-[2.5rem] max-w-[315px] px-6 py-5.25 btnPurple leading-none rounded-3xl cursor-pointer z-10"
         >
           Request orientation permission
         </motion.button>
       </div>
     </BackgroundWithStars>
-    // </section>
   );
 }
 

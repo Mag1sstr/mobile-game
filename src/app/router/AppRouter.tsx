@@ -2,20 +2,26 @@ import { Route, Routes } from "react-router-dom";
 import { ROUTES } from "./routes";
 import PermissionPage from "../../pages/PermissionPage";
 import HomePage from "../../pages/HomePage";
-import ProtectedRoute from "./ProtectedRoute";
+import { useState } from "react";
 
 function AppRouter() {
+  const [hasPermission, setHasPermission] = useState(
+    localStorage.getItem("permissionAccepted") === "true",
+  );
+
+  if (!hasPermission) {
+    return (
+      <Routes>
+        <Route
+          index
+          element={<PermissionPage onAccept={() => setHasPermission(true)} />}
+        />
+      </Routes>
+    );
+  }
   return (
     <Routes>
-      <Route
-        path={ROUTES.HOME}
-        element={
-          <ProtectedRoute>
-            <HomePage />
-          </ProtectedRoute>
-        }
-      />
-      <Route path={ROUTES.LOCK} element={<PermissionPage />} />
+      <Route path={ROUTES.HOME} element={<HomePage />} />
     </Routes>
   );
 }

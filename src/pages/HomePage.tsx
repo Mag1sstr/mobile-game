@@ -1,17 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import LightRotate from "../entities/LightRotate";
 import SwitchMode from "../features/SwitchMode";
 import clsx from "clsx";
 import BackgroundWithStars from "../shared/BackgroundWithStars";
+import { useScore } from "../app/store/useScore";
 
 function HomePage() {
   const [isShaking, setIsShaking] = useState(false);
-  const [count, setCount] = useState(0);
+  const { score, incScore } = useScore();
+  const lastShake = useRef(0);
   useEffect(() => {
     const handleShake = (e: DeviceMotionEvent) => {
       const acceleration = e.accelerationIncludingGravity;
       if (!acceleration) return;
-      if (!acceleration.x || !acceleration.y || !acceleration.z) return;
+      if (
+        acceleration.x == null ||
+        acceleration.y == null ||
+        acceleration.z == null
+      )
+        return;
 
       const threshold = 6;
 
@@ -20,8 +27,13 @@ function HomePage() {
         Math.abs(acceleration.y) +
         Math.abs(acceleration.z);
 
-      if (force > threshold) {
-        setCount((prev) => prev + 1);
+      const now = Date.now();
+
+      if (force > threshold && now - lastShake.current > 300) {
+        setIsShaking(true);
+        lastShake.current = now;
+        navigator.vibrate?.(20);
+        incScore();
       }
     };
     window.addEventListener("devicemotion", handleShake);
@@ -35,30 +47,10 @@ function HomePage() {
       timer = setTimeout(() => setIsShaking(false), 1000);
     }
     return () => clearTimeout(timer);
-  }, [count, isShaking]);
+  }, [score, isShaking]);
 
   return (
-    // <div className="relative h-screen bg-(--bg) px-4 pt-4 pb-10 text-white overflow-hidden">
-    //   {/* Это анимация звезд */}
-    //   <div
-    //     className="
-    //   absolute inset-0
-    //   bg-[url('/stars.png')] bg-repeat
-    //   opacity-20
-    //   animate-[twinkle_4s_ease-in-out_infinite]
-    // "
-    //   />
-    //   <div
-    //     className="
-    //   absolute inset-0
-    //   bg-[url('/stars.png')] bg-repeat
-    //   opacity-10
-    //   animate-[twinkle_7s_ease-in-out_infinite]
-    // "
-    //   />
-
     <BackgroundWithStars>
-      {/* Другое */}
       <div className="flex justify-between items-center pb-3.5 mb-3">
         <p className="bit font-medium">Crypto Shake</p>
         <button>
@@ -214,7 +206,7 @@ function HomePage() {
               </linearGradient>
             </defs>
           </svg>
-          <p>{count}</p>
+          <p>{score}</p>
           <button>
             <svg
               width="28"
@@ -254,7 +246,7 @@ function HomePage() {
           className="relative"
           onClick={() => {
             setIsShaking(true);
-            setCount((p) => p + 1);
+            incScore();
           }}
         >
           <img
@@ -269,8 +261,6 @@ function HomePage() {
         </div>
       </div>
     </BackgroundWithStars>
-
-    // </div>
   );
 }
 
